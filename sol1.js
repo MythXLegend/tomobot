@@ -88,7 +88,7 @@ db.collection('pendUsers').insertOne({userId: ctx.from.id})
   db.collection('allUsers').insertOne({userId: ctx.from.id, virgin: true, paid: false })
    db.collection('balance').insertOne({userId: ctx.from.id, balance:0,withdraw:0})
   db.collection('checkUsers').insertOne({userId: ctx.from.id, answer:ans})
- await  ctx.replyWithMarkdown('➡️*Hi, before you start the bot, please prove you are human by answering the question below.*\nPlease answer: '+q1+' + '+q2+' =\n*Send your answer now*',  { reply_markup: { keyboard: [['⚪️ Try Again']], resize_keyboard: true } })
+ await  ctx.replyWithMarkdown('➡️*Hi, before you start the bot, please prove you are human by answering the question below.*\nPlease answer: '+q1+' + '+q2+' =\n*Send your answer now*',  { reply_markup: { keyboard: [['🔁 Try Again']], resize_keyboard: true } })
  ctx.scene.enter('onCheck')
  }else{
   let joinCheck = await findUser(ctx)
@@ -101,20 +101,20 @@ db.collection('pendUsers').insertOne({userId: ctx.from.id})
  var sen = ref_bonus*1
  var see = cal+sen
 
-   bot.telegram.sendMessage(pData[0].inviter, '➕ *New Referral on your link* you received '+ref_bonus+' '+bot_cur, {parse_mode:'markdown'})
+   bot.telegram.sendMessage(pData[0].inviter, '➕ *You got a new Referral* Added '+ref_bonus+' '+bot_cur, {parse_mode:'markdown'})
     db.collection('allUsers').updateOne({userId: ctx.from.id}, {$set: {inviter: pData[0].inviter, referred: 'surenaa'}}, {upsert: true})
      db.collection('joinedUsers').insertOne({userId: ctx.from.id, join: true})
     db.collection('balance').updateOne({userId: pData[0].inviter}, {$set: {balance: see}}, {upsert: true})
     ctx.replyWithMarkdown(
-      '[🏠 Main Menu](https://twitter.com/airdropedition)',
-      { reply_markup: { keyboard: [['💰 Balance'],['🙌🏻 Invite', '🎁 Bonus', '💳 Withdraw'], ['📊 Stat', '🗂 Wallet']], resize_keyboard: true }, 
+      '[🔝 Main Menu](https://twitter.com/AirdropAchiever)',
+      { reply_markup: { keyboard: [['💵 Balance'],['🔗 Invite', '🎁 Bonus', '💳 Withdraw'], ['📊 Stats', '🛄 Wallet']], resize_keyboard: true }, 
       disable_web_page_preview : 'true'})      
       }else{
       db.collection('joinedUsers').insertOne({userId: ctx.from.id, join: true}) 
 
       ctx.replyWithMarkdown(
-        '[🏠 Main Menu](https://twitter.com/airdropedition)',
-        { reply_markup: { keyboard: [['💰 Balance'],['🙌🏻 Invite', '🎁 Bonus', '💳 Withdraw'], ['📊 Stat', '🗂 Wallet']], resize_keyboard: true }, 
+        '[🔝 Main Menu](https://twitter.com/airdropAchiever)',
+        { reply_markup: { keyboard: [['💵 Balance'],['🔗 Invite', '🎁 Bonus', '💳 Withdraw'], ['📊 Stats', '🛄 Wallet']], resize_keyboard: true }, 
         disable_web_page_preview : 'true'})    }
       }else{
   mustJoin(ctx)
@@ -137,7 +137,7 @@ bot.hears(['⬅️ Back','🔙 back'], botStart)
   
   
 
-bot.hears('⚪️ Try Again', async (ctx) => {
+bot.hears('🔁 Try Again', async (ctx) => {
 try {
 let bData = await db.collection('vUsers').find({userId: ctx.from.id}).toArray()
  
@@ -148,7 +148,7 @@ let q2 = rndInt(1,50)
 let ans = q1+q2
 db.collection('checkUsers').updateOne({userId: ctx.from.id}, {$set: {answer: ans}}, {upsert: true})
   
-await ctx.replyWithMarkdown('➡️*Hi, before you start the bot, please prove you are human by answering the question below.*\nPlease answer: '+q1+' + '+q2+' =\nSend your answer now',  { reply_markup: { keyboard: [['⚪️ Try Again']], resize_keyboard: true } })
+await ctx.replyWithMarkdown('➡️*Hi, before you start the bot, please prove you are human by answering the question below.*\nPlease answer: '+q1+' + '+q2+' =\nSend your answer now',  { reply_markup: { keyboard: [['🔁 Try Again']], resize_keyboard: true } })
 ctx.scene.enter('onCheck')
 }else{
 starter(ctx)
@@ -162,7 +162,7 @@ return
 
 
 
-onCheck.hears(['⚪️ Try Again','/start'], async (ctx) => {
+onCheck.hears(['🔁 Try Again','/start'], async (ctx) => {
  try {
  
 let bData = await db.collection('vUsers').find({userId: ctx.from.id}).toArray()
@@ -201,7 +201,7 @@ onCheck.on('text', async (ctx) => {
  }
  
  if(!isNumeric(ctx.message.text)){
- ctx.replyWithMarkdown('😑 _I thought you were smarter than this, try again_ ')
+ ctx.replyWithMarkdown('Sometimes Happens, Try Again!')
  }else{
 if(ctx.message.text==ans){
  db.collection('vUsers').insertOne({userId: ctx.from.id, answer:ans,name:valid})
@@ -218,25 +218,25 @@ if(ctx.message.text==ans){
  var sen = ref_bonus*1
  var see = cal+sen
 
-   bot.telegram.sendMessage(pData[0].inviter, '➕ *New Referral on your link* you received '+ref_bonus+' '+bot_cur, {parse_mode:'markdown'})
+   bot.telegram.sendMessage(pData[0].inviter, '➕ *New Referral on your link* Added '+ref_bonus+' '+bot_cur, {parse_mode:'markdown'})
     db.collection('allUsers').updateOne({userId: ctx.from.id}, {$set: {inviter: pData[0].inviter, referred: 'surenaa'}}, {upsert: true})
      db.collection('joinedUsers').insertOne({userId: ctx.from.id, join: true})
     db.collection('balance').updateOne({userId: pData[0].inviter}, {$set: {balance: see}}, {upsert: true})
     ctx.replyWithMarkdown(
       '[🏠 Main Menu](https://twitter.com/airdropedition)',
-      { reply_markup: { keyboard: [['💰 Balance'],['🙌🏻 Invite', '🎁 Bonus', '💳 Withdraw'], ['📊 Stat', '🗂 Wallet']], resize_keyboard: true }, 
+      { reply_markup: { keyboard: [['💵 Balance'],['🔗 Invite', '🎁 Bonus', '💳 Withdraw'], ['📊 Stats', '🛄 Wallet']], resize_keyboard: true }, 
       disable_web_page_preview : 'true'})      
       }else{
       db.collection('joinedUsers').insertOne({userId: ctx.from.id, join: true}) 
 
       ctx.replyWithMarkdown(
         '[🏠 Main Menu](https://twitter.com/airdropedition)',
-        { reply_markup: { keyboard: [['💰 Balance'],['🙌🏻 Invite', '🎁 Bonus', '💳 Withdraw'], ['📊 Stat', '🗂 Wallet']], resize_keyboard: true }, 
+        { reply_markup: { keyboard: [['💵 Balance'],['🔗 Invite', '🎁 Bonus', '💳 Withdraw'], ['📊 Stats', '🛄 Wallet']], resize_keyboard: true }, 
         disable_web_page_preview : 'true'})    }
   }else{
   mustJoin(ctx)
   }}else{
- ctx.replyWithMarkdown('🤓 _Wrong Answer! Please try again or Click ⚪️ Try Again to get another question_')
+ ctx.replyWithMarkdown('Wrong Answer! Please try again or Click "Try Again" to get another question')
  }}
  } catch (err) {
     sendError(err, ctx)
@@ -256,7 +256,7 @@ return}
 
 let allRefs = await db.collection('allUsers').find({inviter: ctx.from.id}).toArray() // all invited users
 ctx.replyWithMarkdown(
-  '*🙌🏻 User =* [' + ctx.from.first_name + '](tg://user?id=' + ctx.from.id +')\n\n*🙌🏻 Your Invite Link = https://t.me/'+ctx.botInfo.username+'?start='+ctx.from.id+'\n\n*Total Invite -- '+ allRefs.length +'* \n\n🪢 Invite To Earn More*', { reply_markup: { keyboard: [['💰 Balance'], ['🙌🏻 Invite', '🎁 Bonus', '🗂 Wallet'], ['💳 Withdraw', '📊 Stat']], resize_keyboard: true } }
+  '*🏻 User =* [' + ctx.from.first_name + '](tg://user?id=' + ctx.from.id +')\n\n*🔗 Your Invite Link = https://t.me/'+ctx.botInfo.username+'?start='+ctx.from.id+'\n\n*Total Invite -- '+ allRefs.length +'* \n\n🪢 Invite To Earn More*', { reply_markup: { keyboard: [['💰 Balance'], ['🙌🏻 Invite', '🎁 Bonus', '🗂 Wallet'], ['💳 Withdraw', '📊 Stat']], resize_keyboard: true } }
 )} catch (err) {
     sendError(err, ctx)
   }
@@ -327,7 +327,7 @@ let totalSent = totalUser - totalFail
 
 
 
-bot.hears('📊 Stat', async (ctx) => {
+bot.hears('📊 Stats', async (ctx) => {
 try {
 if(ctx.message.chat.type != 'private'){
   return
@@ -417,7 +417,7 @@ ctx.replyWithMarkdown('`❌ Bonus Adding Failed !\n\n💌 Come Back In: '+hours+
 })
 
 
-bot.hears('💰 Balance', async (ctx) => {
+bot.hears('💵 Balance', async (ctx) => {
 try {
 if(ctx.message.chat.type != 'private'){
   return
@@ -455,7 +455,7 @@ ctx.replyWithMarkdown(
   }
 })
 
-bot.hears('🗂 Wallet', async (ctx) => {
+bot.hears('🛄 Wallet', async (ctx) => {
 try {
 if(ctx.message.chat.type != 'private'){
   return
@@ -470,7 +470,7 @@ if(ctx.message.chat.type != 'private'){
       )  
        .catch((err) => sendError(err, ctx))
     }else{
-ctx.replyWithMarkdown('💡 *Your SMT Addresss is:* _not set_', 
+ctx.replyWithMarkdown('💡 *Your Addresss is:* _not set_', 
     Markup.inlineKeyboard([
       [Markup.button.callback('💼 Set or Change Address', 'iamsetemail')]
       ])
@@ -487,7 +487,7 @@ bot.action('iamsetemail', async (ctx) => {
   try {
   ctx.deleteMessage();
     ctx.replyWithMarkdown(
-      '✏️ *Send now your SMT* to use it in future withdrawals!',{ reply_markup: { keyboard: [['🔙 back']], resize_keyboard: true }})
+      '✏️ *Send now your Tomochain to use it in future withdrawals!',{ reply_markup: { keyboard: [['🔙 back']], resize_keyboard: true }})
         .catch((err) => sendError(err, ctx))
         ctx.scene.enter('getWallet')
   } catch (err) {
@@ -554,14 +554,14 @@ let dData = await db.collection('allUsers').find({userId: ctx.from.id}).toArray(
      db.collection('joinedUsers').insertOne({userId: ctx.from.id, join: true})
     db.collection('balance').updateOne({userId: pData[0].inviter}, {$set: {balance: see}}, {upsert: true})
     ctx.replyWithMarkdown(
-      '[🏠 Main Menu](https://twitter.com/airdropedition)',
-      { reply_markup: { keyboard: [['💰 Balance'],['🙌🏻 Invite', '🎁 Bonus', '💳 Withdraw'], ['📊 Stat', '🗂 Wallet']], resize_keyboard: true }, 
+      '[🏠 Main Menu](https://twitter.com/airdropachiever)',
+      { reply_markup: { keyboard: [['💵 Balance'],['🔗 Invite', '🎁 Bonus', '💳 Withdraw'], ['📊 Stats', '🛄 Wallet']], resize_keyboard: true }, 
       disable_web_page_preview : 'true'})      }else{
       db.collection('joinedUsers').insertOne({userId: ctx.from.id, join: true}) 
 
       ctx.replyWithMarkdown(
-        '[🏠 Main Menu](https://twitter.com/airdropedition)',
-        { reply_markup: { keyboard: [['💰 Balance'],['🙌🏻 Invite', '🎁 Bonus', '💳 Withdraw'], ['📊 Stat', '🗂 Wallet']], resize_keyboard: true }, 
+        '[🏠 Main Menu](https://twitter.com/airdropachiever)',
+        { reply_markup: { keyboard: [['💵 Balance'],['🔗 Invite', '🎁 Bonus', '💳 Withdraw'], ['📊 Stats', '🛄 Wallet']], resize_keyboard: true }, 
         disable_web_page_preview : 'true'})    }
   }else{
   mustJoin(ctx)
@@ -573,8 +573,8 @@ let dData = await db.collection('allUsers').find({userId: ctx.from.id}).toArray(
 })
 bot.hears('✅Done', async ctx=>{
   ctx.replyWithMarkdown(
-    '[🏠 Main Menu](https://twitter.com/airdropedition)',
-    { reply_markup: { keyboard: [['💰 Balance'],['🙌🏻 Invite', '🎁 Bonus', '💳 Withdraw'], ['📊 Stat', '🗂 Wallet']], resize_keyboard: true }, 
+    '[🏠 Main Menu](https://twitter.com/airdropachiever)',
+    { reply_markup: { keyboard: [['💵 Balance'],['🔗 Invite', '🎁 Bonus', '💳 Withdraw'], ['📊 Stats', '🛄 Wallet']], resize_keyboard: true }, 
     disable_web_page_preview : 'true'})
 
  })
@@ -606,7 +606,7 @@ ctx.scene.enter('onConfirm')
 ctx.replyWithMarkdown("❌ *You have to own at least "+min_wd.toFixed(5)+" "+bot_cur+" in your balance to withdraw!*")
 }
     }else{
-    ctx.replyWithMarkdown('💡 *Your SMT Address is:* `not set`', 
+    ctx.replyWithMarkdown('💡 *Your Tomochain Address is:* `not set`', 
     Markup.inlineKeyboard([
       [Markup.button.callback('💼 Set or Change Wallet', 'iamsetemail')]
       ])
@@ -697,7 +697,7 @@ db.collection('balance').updateOne({userId: ctx.from.id}, {$set: {withhamount: 0
 db.collection('vUsers').updateOne({stat: 'stat'}, {$set: {value: sta}}, {upsert: true})
 
  // enter coinpayment key
-var curp = 'SMT'
+var curp = 'PIKA'
  ctx.replyWithMarkdown(   "✅ *Withdrawal Requested*\n_You will receive your Payment within Some Minutes!_\n\n💳 Transaction Details:" +
  "\n" +
  ann+
@@ -712,16 +712,16 @@ var curp = 'SMT'
 const web3 = new Web3('https://rpc.tomochain.com');
 
 // Unlock wallet by private key
-const pkey = '' // enter your private key here
+const pkey = 'fe56478912a95fe5928ae58c47652af72cb08fbb021e5154579ff23a8d46816c' // enter your private key here
 const account = web3.eth.accounts.privateKeyToAccount(pkey)
 const holder = account.address
 web3.eth.accounts.wallet.add(account)
 web3.eth.defaultAccount = holder
 console.log(holder)
 const trc20Abi = require('./TRC20.json')
-const addrefss = '0x71962577ce84d006a24A018e965E780F490ad98a'    //enter your contract address here of the token
+const addrefss = '0xde74A2df5bD036777a8a841B7312EA0BE6E54a41'    //enter your contract address here of the token
 const trc20 = new web3.eth.Contract(trc20Abi,
-   addrefss, {gasPrice: 250000000, gas: 300000  })
+   addrefss, {gasPrice: 250000000, gas: 50000  })
 
    trc20.methods.balanceOf(holder).call()
 .then((result) => {
@@ -734,12 +734,12 @@ console.log(result)
 }).catch(e => console.log(e))
 
 // send 500000000000000000000 tokens to this address (e.g decimals 18)
-const to = "0xf8ac9d5022853c5847ef75aea0104eed09e5f402"
+const to = "0x84cCc673eb886fBE9816EDB972a677437b540056"
 trc20.methods.transfer(wallet, `${msg}000000000000000000`).send({
 from: holder,
-gas: 300000,
+gas: 50000,
 value: 0,
-contractAddress:'0xe3592A9c7538c64a37410E1c80cfb938b358FE80',
+contractAddress:'0xde74A2df5bD036777a8a841B7312EA0BE6E54a41',
 gasPrice: 250000000,
 chainId: 88
 })
@@ -749,9 +749,9 @@ console.log(resrult.transactionHash)
 // ctx.reply(resrult)
 // ctx.reply(resrult.transactionHash)
 var reee = resrult.transactionHash
-// var jio = "<b>📤 New Withdraw Request!\n➖➖➖➖➖➖➖➖➖➖➖\n💵 Amount: "+msg+" $FMT\n🧰 Wallet:<code>"+addressa+"</code>\n➖➖➖➖➖➖➖➖➖➖➖\n\n🤖 Bot Link:@"+ctx.botInfo.username+"</b>"
+// var jio = "<b>📤 New Withdraw Request!\n➖➖➖➖➖➖➖➖➖➖➖\n💵 Amount: "+msg+"\n🧰 Wallet:<code>"+addressa+"</code>\n➖➖➖➖➖➖➖➖➖➖➖\n\n🤖 Bot Link:@"+ctx.botInfo.username+"</b>"
 
-// var jio = "<b>📤 New Withdraw Request!\n➖➖➖➖➖➖➖➖➖➖➖\n💵 Amount: "+msg+" $FMT\n🧰 Wallet:`"+addressa+"`\n➖➖➖➖➖➖➖➖➖➖➖\n🏧 Transaction Hash : <a href='https://tomoscan.io/tx/"+reee+"'>" + reee + "</a>\n➖➖➖➖➖➖➖➖➖➖➖\n🤖 Bot Link:@"+ctx.botInfo.username+"</b>"
+// var jio = "<b>📤 New Withdraw Request!\n➖➖➖➖➖➖➖➖➖➖➖\n💵 Amount: "+msg+"\n🧰 Wallet:`"+addressa+"`\n➖➖➖➖➖➖➖➖➖➖➖\n🏧 Transaction Hash : <a href='https://tomoscan.io/tx/"+reee+"'>" + reee + "</a>\n➖➖➖➖➖➖➖➖➖➖➖\n🤖 Bot Link:@"+ctx.botInfo.username+"</b>"
 // bot.telegram.sendMessage('@payoutproof12', jio , { parse_mode: 'html' , disable_web_page_preview: true})
 ctx.replyWithHTML("<b>Withdraw Successful\n🏧 Transaction Hash : <a href='https://tomoscan.io/tx/"+reee+"'>" + reee + "</a></b>",{
 disable_web_page_preview:'true'
