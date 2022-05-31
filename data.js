@@ -1,14 +1,14 @@
 module.exports = {
 
-    mongoLink:'',//database link
+    mongoLink:'mongodb+srv://MythXLegend:fs2k22@cluster0.9xqum.mongodb.net/?retryWrites=true&w=majority',//database link
     
-    bot_token:'5342266699:AAFI_vWNxSvlPcL0z9bqlrxubeMzu5TRrmE',//bot token
+    bot_token:'5478755151:AAHcopDnRdrroi1NJhr5yzbdJmAhOTpDkWs',//bot token
     
-    bot_name:'PikaCryptoAirdropBot',//bot username without @
+    bot_name:'WSGGiveawayBot',//bot username without @
     
     bot_admin:MythXIegend,// admin telegram id
     
-    channelsList : ['@Airdropws'],// channels list
+    channelsList : ['@AirdropWarden'],// channels list
     
     reffer_bonus:1000,// refferal bonus amount
     
@@ -16,7 +16,7 @@ module.exports = {
     
     daily_bonus:0.001,// daily bonus amount
     
-    currency:'PIKA', //bot cuurency
+    currency:'WSG', //bot cuurency
     
     cb_api_key:'',//coinbase api key
     
